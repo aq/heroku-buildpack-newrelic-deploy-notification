@@ -5,7 +5,9 @@ require 'json'
 release_version, release_user, release_description = nil, nil, nil
 
 begin
-  releases = %x(curl -s -H "Accept: application/json" -u :#{ENV['HEROKU_API_KEY']} -X GET https://api.heroku.com/apps/#{ENV['HEROKU_APP_NAME']}/releases)
+  cmd = "curl -s -H \"Accept: application/json\" -u :#{ENV['HEROKU_API_KEY']} -X GET https://api.heroku.com/apps/#{ENV['HEROKU_APP_NAME']}/releases"
+  puts cmd
+  releases = %x(#{cmd})
   last_release = JSON.parse(releases).last
   release_version = last_release['name']
   release_user = last_release['user']
