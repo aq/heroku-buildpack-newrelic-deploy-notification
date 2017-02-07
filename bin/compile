@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+echo "-----> Notifying NewRelic of this deploy"
+CURRENT_DIR="$(dirname "$(which "$0")")"
+RUBY_SCRIPT="$CURRENT_DIR/notify_new_relic.rb"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "empty$NEW_RELIC_LICENSE_KEY"  == "empty" || "empty$NEW_RELIC_APP_ID" == "empty" ]; then
+  echo "no NEW_RELIC_LICENSE_KEY or no NEW_RELIC_APP_ID"
+  exit 1
+else
+  echo "Notify NewRelic"
+  exit 0
+fi
