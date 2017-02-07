@@ -4,4 +4,5 @@
 echo "-----> Notifying NewRelic of this deploy"
 CURRENT_DIR="$(dirname "$(which "$0")")"
 RUBY_SCRIPT="$CURRENT_DIR/notify_new_relic.rb"
+echo `env`
 HEROKU_API_KEY=$HEROKU_API_KEY NEW_RELIC_APP_ID=$NEW_RELIC_APP_ID HEROKU_APP_NAME=$HEROKU_APP_NAME NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY ruby $RUBY_SCRIPT
