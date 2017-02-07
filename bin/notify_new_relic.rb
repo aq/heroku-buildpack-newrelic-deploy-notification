@@ -21,4 +21,4 @@ curl -X POST 'https://api.newrelic.com/v2/applications/#{new_relic_app_id}/deplo
      '#{params.to_json}'
      > /dev/null 2>&1
 CMD
-system cmd
+raise "Error: #{cmd}" unless system(cmd)
