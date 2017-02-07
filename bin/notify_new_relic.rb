@@ -5,13 +5,13 @@ require 'json'
 release_version, release_user, release_description = nil, nil, nil
 
 begin
-  releases = `curl -H "Accept: application/json" -u :#{ENV['HEROKU_API_KEY']} -X GET https://api.heroku.com/apps/#{ENV['HEROKU_APP_NAME']}/releases`
+  releases = %x(curl -s -H "Accept: application/json" -u :#{ENV['HEROKU_API_KEY']} -X GET https://api.heroku.com/apps/#{ENV['HEROKU_APP_NAME']}/releases)
   last_release = JSON.parse(releases).last
   release_version = last_release['name']
   release_user = last_release['user']
   release_description = last_release['descr']
 rescue => e
-  puts "Skipping releases: #{e.name} #{e.message}"
+  puts "Skipping releases: #{e.class.name} #{e.message}"
 end
 
 params = {
