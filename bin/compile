@@ -4,5 +4,4 @@
 echo "-----> Notifying NewRelic of this deploy"
 CURRENT_DIR="$(dirname "$(which "$0")")"
 RUBY_SCRIPT="$CURRENT_DIR/notify_new_relic.rb"
-echo $3
 ENV_DIR=$3 ruby $RUBY_SCRIPT
