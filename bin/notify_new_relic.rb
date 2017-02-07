@@ -19,6 +19,6 @@ curl -X POST 'https://api.newrelic.com/v2/applications/#{new_relic_app_id}/deplo
      -s
      -d 
      '#{params.to_json}'
+     > /dev/null 2>&1
 CMD
-puts cmd
 system cmd
