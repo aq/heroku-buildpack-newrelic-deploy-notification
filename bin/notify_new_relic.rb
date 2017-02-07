@@ -4,9 +4,16 @@ require 'json'
 
 release_version, release_user, release_description = nil, nil, nil
 
+env_dir = ENV['ENV_DIR']
+puts env_dir
+puts Dir.glob("#{env_dir}/*").inspect
+heroku_api_key = `cat #{env_dir}/HEROKU_API_KEY`
+heroku_app_name = `cat #{env_dir}/HEROKU_APP_NAME`
+new_relic_license_key = `cat #{env_dir}/NEW_RELIC_LICENSE_KEY`
+new_relic_app_id = `cat #{env_dir}/NEW_RELIC_APP_ID`
+
 begin
-  puts "ENV: #{ENV.inspect}"
-  cmd = "curl -s -H \"Accept: application/json\" -u :#{ENV['HEROKU_API_KEY']} -X GET https://api.heroku.com/apps/#{ENV['HEROKU_APP_NAME']}/releases"
+  cmd = "curl -s -H \"Accept: application/json\" -u :#{heroku_api_key} -X GET https://api.heroku.com/apps/#{heroku_app_name}/releases"
   puts cmd
   releases = %x(#{cmd})
   last_release = JSON.parse(releases).last
@@ -25,8 +32,8 @@ params = {
 }
 
 cmd = <<-CMD.gsub("\s+", ' ')
-curl -X POST 'https://api.newrelic.com/v2/applications/#{ENV['NEW_RELIC_APP_ID']}/deployments.json' 
-     -H 'X-Api-Key:#{ENV['NEW_RELIC_LICENSE_KEY']}' -i 
+curl -X POST 'https://api.newrelic.com/v2/applications/#{new_relic_app_id}/deployments.json' 
+     -H 'X-Api-Key:#{new_relic_license_key}' -i 
      -H 'Content-Type: application/json' 
      -d 
      '#{params.to_json}'
